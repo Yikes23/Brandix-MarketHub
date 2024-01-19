@@ -105,11 +105,11 @@ export class PostCreationComponent {
         location: ['', Validators.required],
         title: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
         description: ['', [Validators.required, Validators.minLength(0)]],
-        price: new FormControl({value:'', disabled: false}, 
-          [Validators.min(0),
-            Validators.required,
-            Validators.pattern(/^-?\d+(\.\d+)?$/),
-          ]),
+        price: new FormControl({value:'', disabled: false}, [
+          Validators.min(0),
+          Validators.required,
+          Validators.pattern(/^\d+(\.\d{1,2})?$/),
+        ]),        
         postedBy: '',
         postedOn: '',
         images: [], // Array of image URLs

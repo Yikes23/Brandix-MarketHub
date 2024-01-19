@@ -63,6 +63,17 @@ export class ViewPostComponent {
     })
     
   }
+
+  getPrice(){
+    const numbericPrice = parseFloat(this.selectedPost.price);
+
+    if(!isNaN(numbericPrice)){
+      return numbericPrice.toLocaleString('en-US');
+    }
+    else{
+      return 'Unavailable'
+    }
+  }
   
   toggleBookmark() {
     this.isBookmarked = !this.isBookmarked;
@@ -99,32 +110,32 @@ export class ViewPostComponent {
     }
 }
 
-@Component({
-  selector: 'app-create-review',
-  templateUrl: './review-post.component.html',
-  styleUrls: ['./view-post.component.css'],
-})
-export class ReviewPostComponent {
+// @Component({
+//   selector: 'app-create-review',
+//   templateUrl: './review-post.component.html',
+//   styleUrls: ['./view-post.component.css'],
+// })
+// export class ReviewPostComponent {
 
-  rating: number = 0; 
-  comments: string = '';  
-  constructor(public dialogRef: MatDialogRef<ReviewPostComponent>){}
+//   rating: number = 0; 
+//   comments: string = '';  
+//   constructor(public dialogRef: MatDialogRef<ReviewPostComponent>){}
 
-  active(): boolean{
-    if(this.rating && this.comments !== ''){
-      return true
-    }
-    return false;
-  }
+//   active(): boolean{
+//     if(this.rating && this.comments !== ''){
+//       return true
+//     }
+//     return false;
+//   }
 
-  exit(){
-    this.dialogRef.close()
-  }
-  submit(){
-    this.dialogRef.close([this.rating + 1, this.comments]);
-  }
+//   exit(){
+//     this.dialogRef.close()
+//   }
+//   submit(){
+//     this.dialogRef.close([this.rating + 1, this.comments]);
+//   }
 
-}
+// }
 
 @Component({
   selector: 'app-view-post',

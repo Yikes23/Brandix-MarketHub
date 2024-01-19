@@ -29,6 +29,18 @@ export class PostsComponent {
     })}`
   }
 
+  getPrice(price: string){
+
+    const numbericPrice = parseFloat(price);
+
+    if(!isNaN(numbericPrice)){
+      return numbericPrice.toLocaleString('en-US');
+    }
+    else{
+      return 'Unavailable'
+    }
+  }
+
   postLength(): number{
     return _.keys(this.posts).length;
   }

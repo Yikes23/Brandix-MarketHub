@@ -75,7 +75,7 @@
                                 </div>
                                 <div fxFlex="70%" style="display: flex; justify-content: left; align-items: center;">
                                     <ng-container *ngIf="selectedPost?.price; else negotiable">
-                                        <span style="color: white; font-size: large; margin: 2px; font-style: italic;">Rs. {{selectedPost?.price}}</span>
+                                        <span style="color: white; font-size: large; margin: 2px; font-style: italic;">Rs. {{getPrice()}}</span>
                                     </ng-container>
                                     <ng-template #negotiable>
                                         <span style="color: white; font-size: large; margin: 2px; font-style: italic;">Negotiable</span>

@@ -39,7 +39,7 @@ import { PostCreationComponent } from './post-creation/post-creation.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ImageUploadComponent } from './general-components/image-upload/image-upload.component';
 import { RequirementsComponent } from './general-components/requirements/requirements.component';
-import { ReviewPostComponent, ViewPostComponent } from './view-post/view-post.component';
+import { ViewPostComponent } from './view-post/view-post.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminComponent } from './admin/admin.component';
 import { PostsComponent } from './general-components/posts/posts.component';
@@ -60,7 +60,7 @@ import { RatingComponent } from './general-components/rating/rating.component';
     ImageUploadComponent,
     RequirementsComponent,
     ViewPostComponent,
-    ReviewPostComponent,
+    // ReviewPostComponent,
     AdminComponent,
     PostsComponent,
     RatingComponent,

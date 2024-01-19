@@ -32,6 +32,7 @@
     width: 100%;
     height: 100%;
     background-image: url(../../assets/elements_6.png);
+    background-attachment: fixed;           
     background-size: cover;
     background-position: bottom;
     transform: scaleY(-1); /* Horizontal flip */
@@ -47,7 +48,7 @@
 #ads{
     height: 42.5vh;
     margin: 5px;
-    background: rgba(255, 255, 255, 0.836);
+    background: rgba(255, 255, 255, 0.89);
 }
 
 #wishlist{
@@ -78,6 +79,17 @@
    border: 1px groove;
    background: white;
    border-radius: 100%;
+}
+
+.signOut{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 95%;
+}
+
+.signOut button{
+    margin: 10px;
 }
 
 .posts{

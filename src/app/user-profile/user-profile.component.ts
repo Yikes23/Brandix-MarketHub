@@ -3,6 +3,9 @@ import { AuthService } from '../services/auth.service';
 import { UsersService } from '../services/users.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DeletePostComponent } from '../view-post/view-post.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,7 +20,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     trigger('fadeIn', [
       transition(':enter', [
         style({ opacity: 0 }),
-        animate('1500ms ease-in-out', style({ opacity: 1 })),
+        animate('1700ms ease-in-out', style({ opacity: 1 })),
       ]),
     ]),
 
@@ -34,7 +37,8 @@ export class UserProfileComponent {
 
   constructor(private authService: AuthService, 
               private userService: UsersService,
-              private domSanitizer: DomSanitizer){
+              private router: Router,
+              public dialog: MatDialog){
     setTimeout(() => {
       this.collapse = true;
     }, 500);
@@ -51,6 +55,17 @@ export class UserProfileComponent {
     this.profile.email = token.email; 
     this.profile.mobile = token.mobile || 'Unavailable';
     document.body.style.overflowX = 'hidden';
+  }
+
+  logout(){
+    this.dialog.open(DeletePostComponent, {
+      hasBackdrop: true
+    }).afterClosed().subscribe((valid: any) => {
+      if(valid){
+        this.authService.clearLocalStorage()
+        this.router.navigate([''])
+      }
+    })
   }
   
 }

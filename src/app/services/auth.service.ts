@@ -58,12 +58,16 @@ export class AuthService {
     }
     else {
       if(this.jwtHelper.isTokenExpired(token)){
-        localStorage.removeItem('token');
-        localStorage.removeItem('disclaimer')
+        this.clearLocalStorage();
         return false
       }
     }
     return token !== 'null' ? !this.jwtHelper.isTokenExpired(token) : false;
+  }
+
+  clearLocalStorage() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('disclaimer');
   }
 
   setDisclaimer(){

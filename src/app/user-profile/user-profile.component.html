@@ -1,13 +1,18 @@
 <app-header></app-header>
 <div id="body">
     <mat-card class="card" [@collapseExpand]="collapse ? 'expanded' : 'collapsed'">
-        <div style="height: 5vw">
-            <mat-icon class="avatar" fontIcon="account_circle"></mat-icon>  
+        <div style="height: 5vw; width: 100%; ">
+            <mat-icon class="avatar" fontIcon="account_circle"></mat-icon> 
+            <div class="signOut">
+                <button mat-stroked-button color="warn" style="background:rgba(128, 128, 128, 0.082)" (click)="logout()">
+                    Sign Out 
+                </button>
+            </div> 
         </div>
 
         <div [@fadeIn]>
             <div fxLayout="row" fxLayoutAlign="center start" class="grid">
-                <div fxFlex="45%" id="center" style="border-right: 1px solid; height: 90%; ">
+                <div fxFlex="45%" id="center" style="border-right: 1px solid rgba(120, 120, 120, 0.395); height: 90%; ">
                     <div style="margin: 5px; width: 100%;" >
                         <div style="display: flex; align-items: bottom;" id="align">
                             <mat-card-title id="text-center" style="max-width: 80%;">{{profile.name}}</mat-card-title>
@@ -22,7 +27,7 @@
                         </div>  
                             
                         <div class="posts">
-                            <mat-card-title style=" border-bottom: 1px solid;">&emsp;My Ads</mat-card-title>
+                            <mat-card-title style=" border-bottom: 1px solid rgba(120, 120, 120, 0.395); margin-bottom: 2px;">&emsp;My Ads</mat-card-title>
                             <ng-container *ngIf="postedAds;">
                                 <div [class.post-container] ='postedAds.length > 2' id="ads">
                                     <app-posts [posts]="postedAds"></app-posts>
@@ -33,7 +38,7 @@
                 </div>
                 <div fxFlex="55%">
                     <div style="width: 100%; margin:0 10px 10px 10px;">
-                        <mat-card-title style="border-bottom: 1px solid;">&emsp;Added to Wishlist</mat-card-title>
+                        <mat-card-title style="border-bottom: 1px solid rgba(120, 120, 120, 0.395); margin-bottom: 2px;">&emsp;Added to Wishlist</mat-card-title>
                         <ng-container *ngIf="wishlist;">
                             <div [class.post-container] ='wishlist.length > 2' id="wishlist">
                                 <app-posts [posts]="wishlist"></app-posts>
