@@ -1,0 +1,48 @@
+mat-toolbar{
+    height: 16.25vh; 
+    position: fixed; 
+    z-index: 5; 
+    background:rgba(217, 241, 217, 0.98);
+}
+.searchBar{
+    width: 100%;
+    height: 100%;
+    top: 25px;
+    display: flex;
+    position: absolute;
+}
+
+.toolbar{
+    transform: translateY(0%);
+    transition: transform 0.3s ease-in;
+}
+
+.hidden-toolbar {
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-out;
+}
+  
+.logo{
+    width: 25%; 
+    min-width: 200px; 
+    opacity: 0.725; 
+    margin-left: 10px; 
+    cursor: pointer;
+}
+
+.profile{
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    border: 1px solid black;
+}
+
+.profile mat-icon {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    font-size: 35px; 
+    color: black; 
+    height: 40px; 
+    width: 50px; 
+}

@@ -1,0 +1,32 @@
+<ng-container *ngIf="postLength(); else elseTemplate">
+  <mat-card *ngFor="let post of posts" class="post" appearance="raised" (click) ="viewPost(post)">
+      <mat-grid-list cols="4" rowHeight="5:5">
+        <mat-grid-tile colspan="1">
+          <img mat-card-lg-image [src]="post.images || '../../assets/no-image.jpg'" style="margin: 10px; border-radius: 8px;">
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+          <div class="detail">
+            <mat-card-title>{{post.title}}</mat-card-title>
+            <mat-card-subtitle>{{post.location}}, {{post.subCategory}}</mat-card-subtitle>
+            <!-- <mat-card-subtitle>{{post.description}}</mat-card-subtitle> -->
+            <mat-card-subtitle><b>Price: {{post.price || "Negotiable"}}</b></mat-card-subtitle>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1" style="border-left: 1px ridge;">
+          <div>
+            <mat-card-subtitle class="posted-by">
+              Posted by: {{post.postedBy}}
+            </mat-card-subtitle>
+            <mat-card-subtitle class="posted-by">
+              {{postedOn(post.postedOn)}}
+            </mat-card-subtitle>
+          </div>
+          <div>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card>
+</ng-container>
+<ng-template #elseTemplate>
+  <mat-card-subtitle id="none-template"> <span style="margin: 10%;">Nothing to show</span></mat-card-subtitle> 
+</ng-template> 

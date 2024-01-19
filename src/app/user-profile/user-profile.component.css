@@ -1,0 +1,136 @@
+#body {
+    min-width: 100vw;
+    height: 120%;
+    display: flex;
+    align-items: flex-end;
+    overflow-x: hidden;
+}
+
+#center{
+    display: flex;
+    justify-content: center;
+}
+
+#text-icon{
+    font-size: x-large;
+    margin-right: 5px;
+}
+  
+#text-center{
+    word-wrap: break-word; 
+}
+
+#align{
+ margin-left: 10%;
+}
+
+#body::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../../assets/elements_6.png);
+    background-size: cover;
+    background-position: bottom;
+    transform: scaleY(-1); /* Horizontal flip */
+}
+
+#body::after {
+    transform: scaleY(1); /* Reset transform for the bottom layer */
+    background-position: top; /* Adjust background position for the bottom layer */
+    top: auto; /* Move the bottom layer to the bottom */
+    bottom: 0; /* Position at the bottom */
+}
+
+#ads{
+    height: 42.5vh;
+    margin: 5px;
+    background: rgba(255, 255, 255, 0.836);
+}
+
+#wishlist{
+    height: 60vh;
+}
+
+.card{
+    position: relative;
+    width: 100vw;
+    max-height: 65%;
+    background: rgba(255, 255, 255, 0.945);
+}
+
+.grid{
+    min-height: 100%;
+}
+
+.avatar {
+    position: absolute; 
+    left: 5%;
+    font-size: 15vw;
+    width: 15vw;
+    height: 15vw;
+    top: -10vw; /* Adjust the top position to center vertically */
+   /* Adjust the left position to center horizontally */
+   /* background-color: black; */
+   color: rgb(108, 108, 108);
+   border: 1px groove;
+   background: white;
+   border-radius: 100%;
+}
+
+.posts{
+    width: 100%;
+    height: 100%;
+    display: inline;
+    justify-items: center;
+}
+
+.post-container {
+    /* height: 40vh; */
+    overflow-y: hidden; /* Change to 'scroll' to always show the scrollbar */
+    overflow-x: hidden;
+    transition: -webkit-scrollbar ease-in-out 1s;
+}
+
+.post-container:hover{
+    overflow-y: scroll;
+    transition: -webkit-scrollbar ease-in-out 0.3s;
+}
+.post-container::-webkit-scrollbar {
+    width: 4px; /* Width of the scrollbar */
+}
+
+.post-container::-webkit-scrollbar-thumb {
+    background-color: #999; /* Color of the scrollbar thumb */
+    border-radius: 6px; /* Radius of the scrollbar thumb */
+}
+
+.post-container::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* Color of the scrollbar track */
+}
+
+.post-container::-webkit-scrollbar-thumb:hover {
+    background-color: #666; /* Color of the scrollbar thumb on hover */
+}
+
+.post-container::-webkit-scrollbar-corner {
+    background-color: #f0f0f0; /* Color of the scrollbar corner (if visible) */
+}
+
+
+.post{
+    /* border: 1px solid; */
+    width: 100%;
+    margin:5px;
+    transition: box-shadow 0.1s ease-in-out;
+    transition: margin 0.2s ease-in-out;
+}
+
+.post:hover{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    margin: 10px 0;
+}
+

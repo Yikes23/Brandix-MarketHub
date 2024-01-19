@@ -1,0 +1,36 @@
+
+.post{
+    /* border: 1px solid; */
+    width: 100%;
+    margin:5px;
+    transition: box-shadow 0.1s ease-in-out;
+    transition: margin 0.2s ease-in-out;
+}
+
+.post:hover{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.detail{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+    height: 80%;
+}
+.posted-by {
+    width: 80%;
+    font-style: italic;
+    font-size: 0.8em;
+    margin: 10px;
+    color: #555;
+    word-wrap: break-word;
+}
+
+#none-template{
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,12 @@
+#footer{
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+}
+
+#footer .text {
+    color: rgb(0, 0, 0);
+    font-family: 'Arial', sans-serif; /* Example font-family */
+    font-size: 14px; /* Example font size */
+    font-weight: lighter; /* Example font weight */
+    margin-bottom: 10px; /* Example bottom margin */
+}

@@ -1,0 +1,25 @@
+
+<div class="rating-container">
+  <ng-container *ngIf="cursor; else elseTemplate">
+    <button
+      *ngFor="let star of starsArray; let i = index"
+      mat-icon-button
+      (click)="emitRatings(i)"
+    >
+      <mat-icon class="star-icon">
+        {{ isStarFilled(i) ? 'star' : 'star_outline' }}
+      </mat-icon>
+    </button>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <button
+    *ngFor="let star of starsArray; let i = index"
+    mat-icon-button
+    disabled>
+      <mat-icon class="star-icon">
+        {{ isStarFilled(i) ? 'star' : 'star_outline' }}
+      </mat-icon>
+    </button>
+  </ng-template>
+  </div>
+  

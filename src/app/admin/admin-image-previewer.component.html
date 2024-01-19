@@ -1,0 +1,14 @@
+    <div id="previewerBody">
+        <div mat-dialog-actions>
+            <mat-icon fontIcon="close" (click)="close()" style="margin: 10px;"></mat-icon>
+        </div> 
+        <div id="images">
+            <ngb-carousel>
+                <ng-template ngbSlide *ngFor="let Url of images; let i = index">
+                    <div>
+                        <img mat-card-image [src]="Url" [alt]="'Random slide ' + (i + 1)" class="custom-img" />
+                    </div>
+                </ng-template>
+            </ngb-carousel>
+        </div>
+    </div>

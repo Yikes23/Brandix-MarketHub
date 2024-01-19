@@ -1,0 +1,17 @@
+<mat-toolbar [ngClass]="{ 'hidden-toolbar': hideToolbar, 'toolbar': !hideToolbar }">
+    <img src="../../assets/logo.png" class="logo" (click)="navigateTo('home')" />
+    <div style="margin-left: 10%;">
+        <ng-container *ngIf="!hideToolbar;">
+            <app-search-bar class="searchBar" ></app-search-bar>
+        </ng-container> 
+    </div>
+    <span style="flex: 1;"></span>
+    <button mat-button color="link" disabled (click)="showRequirements = true">Buy</button>
+    <button mat-button color="link" (click)="navigateTo('createPost')">Sell</button>
+    <div style="margin: 0 10px;">
+        <button mat-icon-button class="profile" (click)="navigateTo('profile')">
+            <mat-icon>person</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>
+<app-requirements *ngIf="showRequirements" (close)="showRequirements = false"></app-requirements>

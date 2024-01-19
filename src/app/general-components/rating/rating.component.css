@@ -1,0 +1,8 @@
+.rating-container{
+    display: flex;
+}
+
+.star-icon {
+    font-size: 100%; /* Adjust the size as needed */
+    color: gold; /* Change the color as needed */
+}

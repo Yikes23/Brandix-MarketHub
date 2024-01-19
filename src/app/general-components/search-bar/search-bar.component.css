@@ -1,0 +1,17 @@
+.post-image{
+    vertical-align: middle;
+    margin-right: 8px;
+    width: 50%;
+    border: 1px groove;
+}
+.ellipsis-container {
+    display: flex;
+    max-width: 20vw;
+    align-items: center;
+    overflow: hidden;
+}
+.ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

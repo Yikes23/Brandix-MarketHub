@@ -1,0 +1,69 @@
+<app-header></app-header>
+<div id="body">
+  <mat-card class="main-mat-card">
+    <mat-card-header style="margin: 1%;">
+      <mat-card-title>Marketplace</mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content style="margin-top: 10px;">
+      <div fxLayout="row" fxLayoutAlign="center start">
+        <div fxFlex="33%" class="filter">
+          <mat-card style="width: 100%; height: 100%;">
+            <mat-card-subtitle style="font-size: 1rem; margin: 10px;"><b>Category</b></mat-card-subtitle>
+            <mat-accordion>
+              <mat-expansion-panel *ngFor="let category of categories">
+                <mat-expansion-panel-header>
+                  <mat-checkbox 
+                    [color]="category.color"
+                    [indeterminate]="indeterminate(category.name)"
+                    [checked]="category.completed"
+                    (change)="setAll(category.name)"
+                    >  
+                  {{category.name}}
+                  </mat-checkbox>   
+                </mat-expansion-panel-header>
+                <ul class="list">
+                  <li *ngFor="let subCategory of category.subtasks">
+                    <mat-checkbox [(ngModel)]="subCategory.completed"
+                                  [color]="subCategory.color"
+                                  (ngModelChange)="filterChange()"
+                                  >
+                      {{subCategory.name}}
+                    </mat-checkbox>
+                  </li> 
+                </ul>
+              </mat-expansion-panel>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+            </mat-accordion>
+            <mat-accordion>
+            </mat-accordion>
+          </mat-card> 
+          <mat-card [class.mat-elevation-z8]="true" style="margin-top: 10px;">
+            <mat-card-subtitle style="font-size: 1rem;margin-left: 10px; margin-top: 10%"><b>Location</b></mat-card-subtitle>
+            <div class="location">
+              <mat-form-field class="cityFilter">
+                <mat-label>City</mat-label>         
+                <mat-select [(ngModel)]="selectedCity" (ngModelChange)="filterChange()">
+                    <mat-option *ngFor="let city of cities" [value]="city">{{city}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            </div>
+          </mat-card>
+        </div>
+        <div fxFlex="66%">
+          <div class="posts">
+              <app-posts [posts]=" posts ? posts['data'] : '' "></app-posts>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-footer>
+      <mat-paginator
+      (page)="handlePage($event)"
+      [pageSize]="8"
+      [length]="postLength()"
+      >
+      </mat-paginator>
+    </mat-card-footer>
+  </mat-card>
+</div>
+<app-footer></app-footer>

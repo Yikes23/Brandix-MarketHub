@@ -1,0 +1,90 @@
+<mat-toolbar id="header">
+    <img src= '../../assets/logo.png' (click)="navigateTo('home')" class="logo">
+    <span class="title">POST MANAGEMENT CONSOLE</span>
+</mat-toolbar>
+<div id="body">
+    <div class="mat-table-container">
+        <table mat-table [dataSource]="posts" class="mat-table">           
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="Images">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center"> Images </th>
+                <td mat-cell *matCellDef="let element" id="viewImage"> 
+                    <img [src]="element.images" (click)="showImage(element)" style="width: 100%; margin: 10px;"> 
+                </td>
+            </ng-container>
+            <!-- Position Column -->
+            <ng-container matColumnDef="ID">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+    
+            <!-- Name Column -->
+            <ng-container matColumnDef="Title">
+                <th mat-header-cell *matHeaderCellDef> Title </th>
+                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+            </ng-container>
+    
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Description">
+                <th mat-header-cell *matHeaderCellDef> Description </th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+            </ng-container>
+    
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="Price">
+                <th mat-header-cell *matHeaderCellDef> Price </th>
+                <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+            </ng-container>
+    
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="Categories">
+                <th mat-header-cell *matHeaderCellDef> Category </th>
+                <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+            </ng-container>
+    
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="SubCategories">
+                <th mat-header-cell *matHeaderCellDef> Subcategory </th>
+                <td mat-cell *matCellDef="let element"> {{element.subCategory}} </td>
+            </ng-container>
+            
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="Location">
+                <th mat-header-cell *matHeaderCellDef> Location </th>
+                <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+            </ng-container>
+    
+            
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="Posted By">
+                <th mat-header-cell *matHeaderCellDef> Posted By </th>
+                <td mat-cell *matCellDef="let element"> {{element.postedBy}} </td>
+            </ng-container>
+    
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="Posted On">
+                <th mat-header-cell *matHeaderCellDef> Posted On </th>
+                <td mat-cell *matCellDef="let element"> {{element.postedOn}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="Verify">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Verify </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <div style="display: flex;">
+                        <button mat-icon-button (click)="approvals(element, true)">
+                            <mat-icon fontIcon="check"></mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="approvals(element, false)">
+                            <mat-icon fontIcon="close"></mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+        </table>
+    </div>
+</div>

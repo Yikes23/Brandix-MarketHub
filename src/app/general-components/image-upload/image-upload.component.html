@@ -1,0 +1,29 @@
+<div class="image-upload">
+    <div 
+        class="file-drop-area"
+        (dragover)="dragOver($event)"
+        (drop)="drop($event)"
+        >
+        Drop files here
+        <mat-card-subtitle>Minimize the file space to 2mb</mat-card-subtitle>
+        or 
+        <div>
+            <button type="button" mat-flat-button (click)="fileInput.click()">
+                <mat-icon>ios_share</mat-icon>
+                Choose File
+            </button>
+            <input hidden #fileInput type="file" accept=".jpg, .jpeg, .png" id="file" (change)="onSelect($event)">
+        </div> 
+    </div>
+    <div class="images">
+        <div *ngFor="let image of imageUrls; let i = index" class="mat-card" (mouseenter)="showOverlay[i] = true" (mouseleave)="showOverlay[i]=false">
+            <img mat-card-sm-image [src] = "image" >
+            <div class="overlay" *ngIf="showOverlay[i]">
+                <button mat-card-sm-image mat-icon-button class="removeOverlay" (click)="removeImage(i)">
+                    <mat-icon style="font-size: xx-large; display: flex; align-items: center; justify-content: center; color: red;">delete</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div> 
+</div>
+    

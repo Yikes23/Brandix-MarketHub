@@ -1,0 +1,174 @@
+#body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../../assets/elements_3.png);
+    background-size: contain;
+    background-position: bottom; 
+    flex-direction: column; 
+}
+
+.mat-body{
+    margin: 10% 0 15px 0;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.966)
+}
+
+.mat-body:nth-child(2){
+    margin: 0 0 25px 0;
+}
+
+.mat-body:nth-child(2) .header{
+    display: flex;
+    justify-content: left;
+}
+
+.mat-body:nth-child(2) .header .text{
+    margin: 10px;
+    display: flex;
+    align-items: center;
+}
+.header{
+    box-shadow: none;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    width: 100%;
+}
+
+.header .category{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.header .category:hover{
+    font-weight: 500;
+    transition: font-weight 0.1s ease-in-out;
+}
+
+.grid{
+    margin: 10px;
+    height: 100%;
+    position: relative;
+}
+
+.title{
+    width: 80%;
+}
+
+.postImage { 
+    width: 90%;
+    margin-top: 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(138, 138, 138, 0.553);
+    background-color: rgba(113, 113, 113, 0.354);
+}
+
+.slider{
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider .wrapper {
+    background: white;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 75%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.no-image{
+    height: 60vh;
+}
+.prodDescription{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.prodDescription .mat-card{
+    width: 80%; 
+    height: auto;
+    margin-bottom: 10px;
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.269)
+}
+
+.prodDescription .mat-card section{
+    margin: 10px 15px 0px 10px
+}
+
+.price{
+    background-color:rgb(0, 163, 0);
+    margin: 15px 10px;
+    width: 60%; 
+    max-width: auto;
+}
+
+.bookmark{
+    position: absolute;
+    right: 10px;
+}
+
+.bookmark mat-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.ratings{
+    display: flex;
+    justify-content: center;
+}
+
+.comments{
+    width: 100%;
+}
+
+.reviews{
+    height: auto;
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+
+.review{
+    margin: 10px;
+}
+
+.review .comment {
+    display: flex;
+    margin: 20px;
+    width: 90%;
+}
+.delete-btn{
+    width: 100%; 
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete{
+    display: flex;
+    color: red;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 2rem;
+}       
+  

@@ -1,0 +1,70 @@
+#postCreationBody{
+    width: 100%;
+    min-height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-image: url(../../assets/elements_4.png);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#nestedStepper{
+    width:80%;
+}
+
+#return{
+    margin-left: 5px;
+}
+#return, #return mat-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#typewriter{
+    display: flex;
+    height: 5vh;
+    font-size: x-large;
+    margin: 20px 0 20px 2%;
+    align-items: center;
+    justify-content: left;
+}
+
+#notification{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin-bottom: 10vh; */
+    height: 50vh;
+}
+
+.mat-card{
+    margin: 10px;
+    margin-top: 5%;
+    height: 100%;
+    width: 67.5%;
+}
+.mat-stepper{       
+    margin: 0 5% 5% 5%;
+}
+
+.quotation{
+    /* display: flex; */
+    justify-content: left;
+}
+
+::ng-deep .mat-step-header .mat-step-icon {
+    height: 50px;
+    width: 50px;
+    font-size: 20px;
+    right: 12.5px
+}
+
+
+::ng-deep #nestedStepper .mat-step-header .mat-step-icon  {
+    height: 40px;
+    width: 40px;
+    font-size: 10px;
+}

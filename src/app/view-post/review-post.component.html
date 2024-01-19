@@ -1,0 +1,20 @@
+<mat-dialog-content style="overflow-y: hidden;">
+    <button mat-icon-button (click)="exit()">
+        <mat-icon>close</mat-icon>
+    </button>
+    <mat-card-header mat-dialog-title>Leave your thoughts on the product</mat-card-header>
+    <section class="ratings">
+        <app-rating [cursor]="true" [(ngModel)]="rating"></app-rating>
+    </section>
+    <mat-form-field class="comments">
+        <mat-label>Comment</mat-label>
+        <textarea matInput [(ngModel)]="comments" rows="4"></textarea>
+    </mat-form-field>
+    <mat-dialog-actions>
+        <button mat-stroked-button (click)="submit()" [disabled]="!active()" color="primary">
+            Submit
+        </button>
+    </mat-dialog-actions>
+
+    
+</mat-dialog-content>

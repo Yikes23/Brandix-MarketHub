@@ -1,0 +1,43 @@
+.image-upload{
+    display: flex;
+    margin: 10px;
+    width: 100%;
+}
+.file-drop-area {
+    min-height: 200px;
+    width: 50%;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.images{
+    text-align: center;
+    width: 30%;
+    max-height: 250px;
+    overflow-y: auto;
+}
+.mat-card{
+    position: relative;
+    display: inline-block;
+    margin-top: 5px;
+    width: 80%;
+}
+.overlay{
+    position:absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    margin-top: 15px;
+}
+
+.removeOverlay{
+    background-color: rgba(0, 0, 0, 0.683);
+    border-radius: 100%;
+}
