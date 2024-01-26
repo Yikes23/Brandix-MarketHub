@@ -14,6 +14,7 @@ export class PostsService {
 
   createPost(data: any) {
     const jsonbody = JSON.stringify(data);
+    console.log(jsonbody)
     this.http.post(`${this.apiURL}/create`, data).subscribe(data => {
       console.log(data)
     })
@@ -28,13 +29,13 @@ export class PostsService {
   }
 
   adminGetPost(){
-    return this.http.get(`${this.apiURL}/post/1`)
+    return this.http.post(`${this.apiURL}/post/1`, {})
   }
-
+ 
   userGetPost(pageLimit: number, pageIndex: number, filter?: any){
-    const encodedFilter = encodeURIComponent(JSON.stringify(filter));
-    const url = `${this.apiURL}/post/0?pageLimit=${pageLimit}&pageIndex=${pageIndex}&filter=${encodedFilter}`;
-    return this.http.get(url)
+    const body = { filter: filter }
+    const url = `${this.apiURL}/post/0?pageLimit=${pageLimit}&pageIndex=${pageIndex}`;
+    return this.http.post(url, body);
   }
 
   approvePost(id: number, approve: boolean){

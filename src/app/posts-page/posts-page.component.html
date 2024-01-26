@@ -1,3 +1,4 @@
+<app-disclaimer [conditions]="conditions"></app-disclaimer>
 <app-header></app-header>
 <div id="body">
   <mat-card class="main-mat-card">
@@ -40,13 +41,38 @@
           <mat-card [class.mat-elevation-z8]="true" style="margin-top: 10px;">
             <mat-card-subtitle style="font-size: 1rem;margin-left: 10px; margin-top: 10%"><b>Location</b></mat-card-subtitle>
             <div class="location">
-              <mat-form-field class="cityFilter">
+              <!-- <mat-form-field class="cityFilter"> 
                 <mat-label>City</mat-label>         
                 <mat-select [(ngModel)]="selectedCity" (ngModelChange)="filterChange()">
                     <mat-option *ngFor="let city of cities" [value]="city">{{city}}</mat-option>
                 </mat-select>
-            </mat-form-field>
-            </div>
+              </mat-form-field> -->
+              <mat-form-field class="cityFilter">
+                <mat-label>City</mat-label> 
+                <input matInput [formControl]="selectedCity" [matAutocomplete]="auto">
+                <button *ngIf="selectedCity.value" matSuffix mat-icon-button (click)="clearInput()">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-autocomplete #auto>
+                  <mat-option (onSelectionChange)="updateLocation(item)" *ngFor="let item of filterLocation()">
+                    {{item}}
+                  </mat-option>
+                </mat-autocomplete>
+                
+              </mat-form-field>                                 
+              <mat-card appearance="outlined" [@expandChips]="cityChips.length ? '*' : 'void'" class="chips">
+                <mat-chip-set style="margin: 2px;">
+                  <mat-chip
+                   *ngFor="let city of cityChips"
+                  >
+                  <button matChipRemove (click)="removeLocation(city)">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                  {{city}}
+                  </mat-chip>
+                </mat-chip-set>
+              </mat-card>
+            </div>  
           </mat-card>
         </div>
         <div fxFlex="66%">
@@ -59,7 +85,8 @@
     <mat-card-footer>
       <mat-paginator
       (page)="handlePage($event)"
-      [pageSize]="8"
+      [pageIndex]="pageIndex"
+      [pageSize]="pageSize"
       [length]="postLength()"
       >
       </mat-paginator>

@@ -45,6 +45,7 @@ import { AdminComponent } from './admin/admin.component';
 import { PostsComponent } from './general-components/posts/posts.component';
 import { AdminAuthGuard, AuthGuard } from './services/auth.guard';
 import { RatingComponent } from './general-components/rating/rating.component';
+import { DisclaimerComponent } from './general-components/disclaimer/disclaimer.component';
 
 @NgModule({
   declarations: [
@@ -60,10 +61,10 @@ import { RatingComponent } from './general-components/rating/rating.component';
     ImageUploadComponent,
     RequirementsComponent,
     ViewPostComponent,
-    // ReviewPostComponent,
     AdminComponent,
     PostsComponent,
     RatingComponent,
+    DisclaimerComponent,
   ],
   imports: [
     BrowserModule,

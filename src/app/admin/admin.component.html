@@ -35,6 +35,12 @@
                 <th mat-header-cell *matHeaderCellDef> Price </th>
                 <td mat-cell *matCellDef="let element"> {{element.price}} </td>
             </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="Negotiable">
+                <th mat-header-cell *matHeaderCellDef> Negotiable </th>
+                <td mat-cell *matCellDef="let element"> {{element.negotiable}} </td>
+            </ng-container>
     
             <!-- Symbol Column -->
             <ng-container matColumnDef="Categories">

@@ -18,9 +18,13 @@ export class UsersService {
     return this.http.get<boolean>(`${this.apiURL}/wishlist/${String(userId)}/${String(postId)}`)
   }
 
-  getPosts(userId: string){
-    console.log(userId)
-    return this.http.get(`${this.apiURL}/posted/${userId}`);
+  getPosts(userId: string): any{
+    try{
+      return this.http.get(`${this.apiURL}/posted/${userId}`);
+    }
+    catch(error){
+      return error;
+    }
   }
 
   updateWishlist(postId: string, wishlist: boolean){

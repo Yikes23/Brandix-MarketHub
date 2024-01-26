@@ -18,6 +18,7 @@ import * as _ from 'lodash';
 export class ViewPostComponent {
 
   isBookmarked: boolean  = false;
+  conditions: boolean = false;
   selectedPost: any;
   images: any;
   reviews: any[] = [];
@@ -31,6 +32,7 @@ export class ViewPostComponent {
       private userService: UsersService,
       private authService: AuthService) {
     // customize default values of carousels used by this component tree
+    this.conditions = this.authService.getDisclaimer();
 		config.interval = 4000;
 		config.wrap = true;
 		config.keyboard = false;
@@ -65,7 +67,7 @@ export class ViewPostComponent {
   }
 
   getPrice(){
-    const numbericPrice = parseFloat(this.selectedPost.price);
+    const numbericPrice = parseFloat(this.selectedPost?.price);
 
     if(!isNaN(numbericPrice)){
       return numbericPrice.toLocaleString('en-US');

@@ -14,18 +14,6 @@ export class HomePageComponent {
     this.conditions = this.auth.getDisclaimer();
   }
 
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    console.log(this.conditions)
-    if(this.conditions){
-      document.body.style.overflow = 'hidden';
-    }
-    else{
-      document.body.style.overflow = 'visible';
-    }
-  }
-
   objects: any[] = [
     {category: 'Electronics', icon: 'gadgets'},
     {category: 'Vehicles', icon: 'car'},
@@ -40,12 +28,6 @@ export class HomePageComponent {
     {category: 'HR Services', icon: 'service'},
     {category: 'Others', icon: 'delivery-box'},
   ];
-
-  updateCondition(){
-    this.conditions = false;
-    document.body.style.overflow = 'visible';
-    this.auth.setDisclaimer();
-  }
 
   selectedCategory(category: string){
     if(category){

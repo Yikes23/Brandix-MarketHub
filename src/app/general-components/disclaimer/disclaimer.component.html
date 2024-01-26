@@ -1,0 +1,47 @@
+<div class="disclaimer" *ngIf="conditions">
+    <mat-card class="disclaimer-body">
+        <mat-card-header style='font-weight: 600;'>Terms & Conditions</mat-card-header>
+        <mat-card-content class="content">
+            - This website is an online platform that allows users to post and browse advertisements 
+            for various products and services. The website does not own, produce, sell, or endorse any
+            of the products or services advertised on the website. The website is not involved in any transactions 
+            between the buyers and sellers, and does not guarantee the quality, safety, legality, or accuracy of the
+            advertisements or the products and services offered. The website is not responsible for any disputes, damages, losses, or 
+            liabilities arising from the use of the website or the advertisements.
+        </mat-card-content>
+        <mat-card-content class="content">
+            - The users of the website are solely responsible for their own actions and decisions when
+            using the website or contacting the sellers. The users are advised to verify the identity, 
+            credibility, and reliability of the sellers before engaging in any transactions. The users are also advised to read and 
+            understand the terms and conditions, privacy policy, and refund policy of the sellers before making any payments or 
+            purchases. The users are responsible for complying with all applicable laws and regulations when using the website or the advertisements.
+        </mat-card-content>
+        <mat-card-content class="content">
+            - By using this website, you agree to this disclaimer and accept all the risks and responsibilities
+            associated with your use of the website and the advertisements. If you do not agree to this disclaimer, 
+            please do not use this website or the advertisements. All the users should also adhere to the company code 
+            of conduct (COC), promoting a workplace culture built on trust, respect, and professionalism
+        </mat-card-content>
+        <mat-card-actions>
+            <div style="display:flex; width:100%; justify-content: left; margin: 10px;">                
+                <mat-checkbox color="primary"
+                 (ngModelChange)="updateCheckbox()"
+                 [(ngModel)]="checkbox">
+                    I accept the terms and conditions 
+                </mat-checkbox>
+            </div>
+            <div style="display:flex; width:100%; justify-content:right; margin-right: 10px;"> 
+                <ng-container *ngIf="time; else elseTemplate">
+                    <button mat-stroked-button disabled class="disclaimer-btn" style="color: white;">
+                        Accept & Continue ({{time}})
+                    </button>
+                </ng-container>
+                <ng-template #elseTemplate>
+                    <button mat-flat-button (click)="updateCondition()" color="primary">
+                        Accept & Continue
+                    </button>
+                </ng-template>    
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</div>

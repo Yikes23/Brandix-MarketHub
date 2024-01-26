@@ -18,7 +18,7 @@ export class AdminComponent {
 
   posts: any = [];
 
-  displayedColumns: string[] = ['Images', 'ID', 'Title', 'Description', 'Price', 'Categories', 'SubCategories', 'Location','Posted By', 'Posted On', 'Verify'];
+  displayedColumns: string[] = ['Images', 'ID', 'Title', 'Description', 'Price', 'Negotiable', 'Categories', 'SubCategories', 'Location','Posted By', 'Posted On', 'Verify'];
 
   constructor(public dialog: MatDialog, private router: Router, private postService: PostsService){}
 

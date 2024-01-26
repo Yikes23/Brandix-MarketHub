@@ -20,11 +20,10 @@ export class PostsComponent {
   postedOn(date: string){
     const localDate = new Date(date);
     return `${localDate.toLocaleString('en-US', {
-      day: '2-digit',
-      month: '2-digit',
-      year: '2-digit',
+      day: 'numeric',
+      month: 'short',
       hour:'2-digit',
-      minute:'2-digit',
+      minute:'numeric',
       hour12: true,
     })}`
   }

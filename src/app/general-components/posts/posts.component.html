@@ -9,7 +9,7 @@
             <mat-card-title>{{post.title}}</mat-card-title>
             <mat-card-subtitle>{{post.location}}, {{post.subCategory}}</mat-card-subtitle>
             <!-- <mat-card-subtitle>{{post.description}}</mat-card-subtitle> -->
-            <mat-card-subtitle><b>Price: {{getPrice(post.price)}}</b></mat-card-subtitle>
+            <mat-card-subtitle><b>Price: {{getPrice(post.price)}} {{post.negotiable? '(Negotiable)' : ''}}</b></mat-card-subtitle>
           </div>
         </mat-grid-tile>
         <mat-grid-tile colspan="1" style="border-left: 1px ridge;">

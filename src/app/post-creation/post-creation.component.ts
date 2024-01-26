@@ -58,6 +58,7 @@ import { AuthService } from '../services/auth.service';
 export class PostCreationComponent {
   
   isStepperVisible: boolean = false;
+  conditions: boolean = false;
   showNotification: 'expanded' | 'collapsed' = 'collapsed';
   stepperState: 'expanded' | 'collapsed' = 'collapsed';
   fadeIn: 'hidden' | 'visible' = 'hidden';
@@ -66,32 +67,36 @@ export class PostCreationComponent {
 
   cities = [  
     'Colombo',
+    'Gampaha',
     'Kandy',
-    'Galle',
-    'Jaffna',
-    'Negombo',
-    'Trincomalee',
-    'Anuradhapura',
-    'Polonnaruwa',
-    'Batticaloa',
-    'Matara',
-    'Ratnapura',
+    'Kalutara',
     'Kurunegala',
-    'Badulla',
-    'Nuwara Eliya',
-    'Hambantota',
-    'Ampara',
+    'Galle',
+    'Ratnapura',
+    'Anuradhapura',
+    'Kegalle',
+    'Matara',
     'Puttalam',
-    'Mannar',
+    'Jaffna',
+    'Ampara',
+    'Batticaloa',
+    'Matale',
+    'Badulla',
+    'Hambantota',
+    'Trincomalee',
+    'Polonnaruwa',
+    'Nuwara Eliya',
+    'Monaragala',
+    'Vavuniya',
     'Kilinochchi',
-    'Vavuniya'
-  ];
+    'Mannar',
+    'Mullativu',
+  ].sort();
 
     @ViewChild('nestedStepper') nestedStepper: MatStepper | undefined;
     @ViewChild('stepper') stepper: MatStepper | undefined;
 
     jwtHelper = new JwtHelperService();
-
     constructor(
       private fb: FormBuilder, 
       private router: Router,
@@ -99,6 +104,8 @@ export class PostCreationComponent {
       private imageUploadService: ImageUploadService, 
       private postService: PostsService
       ) {
+
+      this.conditions = this.authService.getDisclaimer();
       this.form = this.fb.group({
         category: ['', Validators.required],
         subCategory: ['', Validators.required],
@@ -109,7 +116,8 @@ export class PostCreationComponent {
           Validators.min(0),
           Validators.required,
           Validators.pattern(/^\d+(\.\d{1,2})?$/),
-        ]),        
+        ]),
+        negotiable: false,        
         postedBy: '',
         postedOn: '',
         images: [], // Array of image URLs
@@ -146,10 +154,10 @@ export class PostCreationComponent {
     }
     return [];
   }
-  negotiable(){
-    this.form.get('price').enabled ? 
-    this.form.get('price').disable() :
-    this.form.get('price').enable();
+
+  updateNegotiable(){
+    this.form.get('negotiable').value = !this.form.get('negotiable').value;
+    console.log(this.form.get('negotiable').value);
   }
 
   goToLocationStep() {
@@ -181,6 +189,7 @@ export class PostCreationComponent {
     this.form.get('price').disabled ?
     this.form.get('price').setValue('') : '';
     this.form.get('postedBy').setValue(token.email)
+    this.form.get('description').setValue(String(this.form.get('description').value).trim())
     this.form.get('postedOn').setValue(new Date().toLocaleString()) 
     this.postService.createPost(this.form.value)
     this.stepperState = 'collapsed';

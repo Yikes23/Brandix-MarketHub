@@ -64,7 +64,7 @@
     margin-top: 10px;
     border-radius: 2px;
     border: 1px solid rgba(138, 138, 138, 0.553);
-    background-color: rgba(113, 113, 113, 0.354);
+    background-color: rgba(153, 153, 153, 0.354);
 }
 
 .slider{
@@ -111,6 +111,11 @@
 
 .prodDescription .mat-card section{
     margin: 10px 15px 0px 10px
+}
+
+.description{
+    width: 95%;
+    word-break: break-all;
 }
 
 .price{

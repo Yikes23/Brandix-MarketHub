@@ -1,4 +1,5 @@
 <app-header></app-header>
+<app-disclaimer [conditions]="conditions"></app-disclaimer>
 <div id="body"> 
     <mat-card class="mat-body">
         <mat-card class="header">
@@ -73,13 +74,11 @@
                                 <div fxFlex="30%" style="display: flex; align-items: center;">
                                     <mat-icon fontIcon="sell" style="height: auto; width: auto; color:white; font-size: x-large; margin: 10px;"></mat-icon>
                                 </div>
-                                <div fxFlex="70%" style="display: flex; justify-content: left; align-items: center;">
-                                    <ng-container *ngIf="selectedPost?.price; else negotiable">
-                                        <span style="color: white; font-size: large; margin: 2px; font-style: italic;">Rs. {{getPrice()}}</span>
+                                <div fxFlex="70%" style="display: flex; align-items: center; flex-direction: column; margin: 5px;">
+                                    <ng-container style="color: white; font-size: large; margin: 2px;">
+                                        <span style="color: white; font-size: large; font-style: oblique;">Rs. {{getPrice()}} <br></span> 
+                                        <span style="color: white; font-size: small; font-style: oblique;">{{selectedPost?.negotiable ? "(Negotiable)" : ""}}</span>
                                     </ng-container>
-                                    <ng-template #negotiable>
-                                        <span style="color: white; font-size: large; margin: 2px; font-style: italic;">Negotiable</span>
-                                    </ng-template>
                                 </div>
                             </div>
                         </mat-card>
@@ -95,7 +94,7 @@
             </div>
             </div>
         </div>
-            <mat-card class="grid">
+            <mat-card class="grid" [appearance]="'outlined'">
                 <section style="margin: 20px;">
                     <mat-card-title>
                         Description
