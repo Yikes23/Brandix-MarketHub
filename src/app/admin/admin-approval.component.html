@@ -1,6 +1,19 @@
-    <span mat-dialog-content style="margin: 10px;">Do you want to proceed with the action</span>
-
+<span mat-dialog-content style="margin: 10px;">Do you want to proceed with the action</span>
+<ng-container *ngIf="data; else elseTemplate">
     <div mat-dialog-actions style="display: flex; align-items: center; justify-content: center;">    
         <button mat-flat-button (click)="close(false)">Cancel</button>
         <button mat-flat-button (click)="close(true)">Submit</button>
     </div>  
+</ng-container>
+<ng-template #elseTemplate>
+    <div class="comment-container">
+        <mat-form-field class="comments">
+            <mat-label>Comments</mat-label>
+            <textarea matInput [(ngModel)]="comments" rows="4"></textarea>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions style="display: flex; align-items: center; justify-content: center;">    
+        <button mat-flat-button (click)="close(false)">Cancel</button>
+        <button mat-flat-button (click)="close(true)">Submit</button>
+    </div>  
+</ng-template>

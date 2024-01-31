@@ -17,7 +17,6 @@ export class DisclaimerComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    console.log(this.conditions)
     this.timer_on();
     if(this.conditions){
       document.body.style.overflow = 'hidden';
@@ -45,7 +44,6 @@ export class DisclaimerComponent {
   }
 
   updateCheckbox(){
-    console.log(!this.conditions)
     this.time = this.time - this.time;
   }
 

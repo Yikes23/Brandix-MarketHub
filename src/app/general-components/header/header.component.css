@@ -28,7 +28,14 @@ mat-toolbar{
     opacity: 0.725; 
     margin-left: 10px; 
     cursor: pointer;
+    transition: 0.2s background-color ease-in-out;
 }
+
+.logo:hover{
+    transition: 0.1s background-color ease-in-out;
+    background-color: rgba(0, 0, 0, 0.103);
+}
+
 
 .profile{
     display: flex; 

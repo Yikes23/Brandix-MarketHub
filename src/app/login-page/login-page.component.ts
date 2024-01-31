@@ -53,7 +53,7 @@ export class LoginPageComponent {
         }
         else{
           this._snackBar.open(
-            'Failed to login. Please try again' , 'close',
+            'Failed to login. Please try again' , 'Close',
             { 
               horizontalPosition: 'left',
               duration: 3000,

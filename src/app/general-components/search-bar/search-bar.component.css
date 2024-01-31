@@ -1,17 +1,19 @@
 .post-image{
-    vertical-align: middle;
-    margin-right: 8px;
-    width: 50%;
+    width: 5vw;
     border: 1px groove;
 }
 .ellipsis-container {
-    display: flex;
-    max-width: 20vw;
+    flex-grow: 1;
+    margin-left: 2vw;
+    max-width: 10vw;
+    display: flex; /* Add display: flex */
     align-items: center;
-    overflow: hidden;
 }
 .ellipsis {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    max-width: 100%; /* Adjust to your needs */
+    display: inline-block; 
+    align-items: center;
 }

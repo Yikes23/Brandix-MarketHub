@@ -8,12 +8,16 @@
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="viewPost($event)">
         <ng-container *ngFor="let post of filteredPosts | async">
             <mat-option [value]="post.title">
-                <div style="display: flex; margin: 5px; width: 100%;">
+                <div style="display: flex; margin: 5px; width: 50%;">
                     <ng-container *ngIf="post.images; else elseTemplate">
-                        <img [src]="post.images" class="post-image" height="50">
+                        <div>
+                            <img [src]="post.images" class="post-image" >
+                        </div>
                     </ng-container>
                     <ng-template #elseTemplate>
-                        <img src="../../../assets/no-image.jpg" class="post-image" height="50">
+                        <div>
+                            <img src="../../../assets/no-image.jpg" class="post-image">
+                        </div>
                     </ng-template>
                     <div class="ellipsis-container">
                         <span class="ellipsis">{{post.title}}</span>

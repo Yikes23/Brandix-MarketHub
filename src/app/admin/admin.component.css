@@ -51,3 +51,13 @@
 #approvalBody{
     height: 20%;
 }
+
+.comment-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.comments{
+    width: 80%;
+}

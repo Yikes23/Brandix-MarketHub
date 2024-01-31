@@ -50,14 +50,15 @@ export class ImageUploadComponent {
         reader.readAsDataURL(event);
       }
       else{
-        this._snackBar?.open('Upload the image in appropriate file format.', 'OK',
+        this._snackBar?.open('Select file consisting in appropriate file format.', 'OK',
         {
           verticalPosition:'bottom',
           horizontalPosition: 'left',
           duration: 3000
         })
-      
+        
       }
+      console.log(this.imageUrls)
     }
     else{
       this._snackBar?.open('Sorry, only 5 images could be uploaded.', 'OK',

@@ -30,6 +30,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatChipsModule} from '@angular/material/chips';
 import {NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchBarComponent } from './general-components/search-bar/search-bar.component';
 import { FooterComponent } from './general-components/footer/footer.component';
@@ -94,6 +95,7 @@ import { DisclaimerComponent } from './general-components/disclaimer/disclaimer.
     MatTooltipModule,
     MatAutocompleteModule,
     MatChipsModule,
+    NgxSkeletonLoaderModule,
     NgbCarouselModule,
     FlexLayoutModule,
     ReactiveFormsModule,

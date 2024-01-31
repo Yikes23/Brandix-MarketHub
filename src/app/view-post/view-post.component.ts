@@ -8,6 +8,8 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../services/auth.service';
 import * as _ from 'lodash';
+import { Observable, observable } from 'rxjs';
+import { observeNotification } from 'rxjs/internal/Notification';
 
 @Component({
   selector: 'app-view-post',
@@ -18,6 +20,7 @@ import * as _ from 'lodash';
 export class ViewPostComponent {
 
   isBookmarked: boolean  = false;
+  isAdmin: boolean = false;
   conditions: boolean = false;
   selectedPost: any;
   images: any;
@@ -45,10 +48,9 @@ export class ViewPostComponent {
     //Add 'implements OnInit' to the class.
     this.route.params.forEach(params => {
       const postId = params['id'];
-
+      
       this.postService.findPost(postId).subscribe(data => {
         this.selectedPost = data;
-        console.log(data)
         this.images = this.selectedPost.images;
         this.userService
         .getWishlistStatus(this.selectedPost?.id)
@@ -56,14 +58,16 @@ export class ViewPostComponent {
           this.isBookmarked = data;
         }) 
         
-        _.forEach(this.selectedPost.reviews, 
-          (data: any) => {
-            this.reviews.push(JSON.parse(data))
-          }
-        )
+        // _.forEach(this.selectedPost.reviews, 
+        //   (data: any) => {
+        //     this.reviews.push(JSON.parse(data))
+        //   }
+        // )
       });
     })
     
+    const author = this.authService.getToken()['email'];
+    this.authService.isAdmin(String(author).toLowerCase()).subscribe(response => this.isAdmin = response);
   }
 
   getPrice(){
@@ -96,10 +100,15 @@ export class ViewPostComponent {
       this.router.navigate([`/${location}`], {state: {data: data}});
     }
     
-    isAuthor(): boolean{
-      const author = this.authService.getToken()['email']
-      return author === this.selectedPost?.postedBy ? true : false;
+    isAuthor(): boolean {
+      const author = this.authService.getToken()['email'];
+      if(this.isAdmin || author === this.selectedPost?.postedBy){
+        return true
+      }
+      return false;   
     }
+
+
     
     
     deletePost(){

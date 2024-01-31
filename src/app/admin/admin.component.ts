@@ -8,6 +8,9 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { PostsService } from '../services/posts.service';
 import * as _ from 'lodash';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-admin',
@@ -40,14 +43,21 @@ export class AdminComponent {
 
   approvals(element: any, approve: boolean){
 
-    this.dialog.open(adminApproval).afterClosed().subscribe((valid: any) => {
-      if(valid){
-        this.postService.approvePost(element.id, approve).subscribe(data => {
-          console.log(data)
-        });
+    this.dialog.open(
+      adminApproval,
+      { data: approve }
+      ).afterClosed().subscribe((valid: any) => {
+
+      if(approve){
+        console.log(valid['comments'])
+        this.postService.approvePost(element.id, approve).subscribe();
+      }
+      else{
+        this.postService.approvePost(element.id, approve, valid['comments']).subscribe();
+      }
         this.posts = this.posts.filter((post: any) => post.id !== element.id)
       }
-    })
+    )
   }
 
   navigateTo(route: string): void {
@@ -93,14 +103,21 @@ export class adminImagePreviewer {
     CommonModule,
     MatButtonModule,
     MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
   ],
   standalone: true
 })
 export class adminApproval{
 
-  constructor(public dialogRef: MatDialogRef<adminApproval>){}
+  comments: string = '';
+  constructor(
+    public dialogRef: MatDialogRef<adminApproval>,
+    @Inject(MAT_DIALOG_DATA) public data: any){}
+
   close(action: boolean){
-    this.dialogRef.close(action);
+    this.dialogRef.close({action: action, comments: this.comments});
   }
 
 }

@@ -38,8 +38,11 @@ export class PostsService {
     return this.http.post(url, body);
   }
 
-  approvePost(id: number, approve: boolean){
-    return this.http.delete(`${this.apiURL}/adminPost/${id}/${approve}`)
+  approvePost(id: number, approve: boolean, comments?: string){
+    console.log(comments)
+    return this.http.delete(`${this.apiURL}/adminPost/${id}/${approve}`,
+    {params: { comments: comments || '' }} 
+    )
   } 
 
   getSuggestions(query: string | null) {  

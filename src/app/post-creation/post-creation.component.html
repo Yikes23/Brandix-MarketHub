@@ -65,7 +65,7 @@
                 <mat-step state="location" #location [completed]="form.get('location').valid">
                     <ng-template matStepLabel>Location</ng-template>
                     <mat-form-field>
-                        <mat-label>Select City</mat-label>
+                        <mat-label>Select District</mat-label>
                         <mat-select formControlName="location" [value]="form.location">
                             <mat-option *ngFor="let city of cities" [value]="city">{{city}}</mat-option>
                         </mat-select>
@@ -80,7 +80,7 @@
                     <section class="quotation">
                         <mat-form-field>
                             <mat-label>Price</mat-label>
-                            <input class = 'price' matInput placeholder="0" formControlName="price">
+                            <input class = 'price' matInput placeholder="0" formControlName="price" (input)="formatPrice()">
                         </mat-form-field>
                         <mat-slide-toggle (change)="updateNegotiable()" style="margin-left: 10px;"> Negotiable </mat-slide-toggle>
                     </section>

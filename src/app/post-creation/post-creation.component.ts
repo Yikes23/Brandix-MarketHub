@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, Pipe, PipeTransform, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { MatStepper } from '@angular/material/stepper';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
@@ -113,9 +113,9 @@ export class PostCreationComponent {
         title: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
         description: ['', [Validators.required, Validators.minLength(0)]],
         price: new FormControl({value:'', disabled: false}, [
-          Validators.min(0),
+          // Validators.min(0),
           Validators.required,
-          Validators.pattern(/^\d+(\.\d{1,2})?$/),
+          // Validators.maxLength(15)
         ]),
         negotiable: false,        
         postedBy: '',
@@ -157,7 +157,6 @@ export class PostCreationComponent {
 
   updateNegotiable(){
     this.form.get('negotiable').value = !this.form.get('negotiable').value;
-    console.log(this.form.get('negotiable').value);
   }
 
   goToLocationStep() {
@@ -172,6 +171,10 @@ export class PostCreationComponent {
 
   validateTitle(title: string): boolean {
     return title.length > 0 && title.length <= 50;
+  }
+
+  formatPrice(){
+    this.form.get('price').setValue(new NumberWithCommasPipe().transform(this.form.get('price').value));
   }
   
   hasErrors(){
@@ -196,3 +199,17 @@ export class PostCreationComponent {
     this.showNotification = 'expanded';
   }
 }
+
+
+  @Pipe({ name: 'numberWithCommas' })
+  export class NumberWithCommasPipe implements PipeTransform {
+    transform(value: any): string {
+
+      value = String(value).replaceAll(',', '')
+      if(!isNaN(parseFloat(value))){
+        const val = parseFloat(value);
+        return new Intl.NumberFormat('en-US').format(val)
+      }
+      return '';
+    }
+  }
