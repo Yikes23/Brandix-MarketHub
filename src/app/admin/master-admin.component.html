@@ -1,0 +1,28 @@
+<h1 mat-dialog-title> Update Admins</h1>
+
+<mat-dialog-content style="display: flex; justify-content: center; flex-direction: column;">
+    <div>
+        <mat-chip-set style="margin: 2px; height: 10vw; overflow-y: auto;">
+            <mat-chip
+                *ngFor="let email of emails"
+            >
+                {{email}}
+            <button matChipRemove (click)="removeEmail(email)">
+                <mat-icon>cancel</mat-icon> 
+            </button>
+            </mat-chip>
+        </mat-chip-set>
+    </div>
+    <div style="display: flex; justify-content: center; margin-top: 20px">   
+        <mat-form-field [formGroup]="form">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email"/>
+            <mat-error *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">Invalid email</mat-error>
+            <mat-error *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">Email is <strong>required</strong></mat-error>
+            <mat-hint *ngIf="adminExists()">Admin already exists.</mat-hint>
+        </mat-form-field>
+        <button mat-icon-button (click)="submit()">
+            <mat-icon>add_circle</mat-icon>
+        </button>
+    </div>
+</mat-dialog-content>

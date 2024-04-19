@@ -8,9 +8,11 @@
   import { ViewPostComponent } from './view-post/view-post.component';
   import { AdminComponent } from './admin/admin.component';
   import { AdminAuthGuard, AuthGuard } from './services/auth.guard';
+// import { MasterAdminComponent } from './master-admin/master-admin.component';
 
   const routes: Routes = [
     { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuard]},
+    // { path: 'master', component: MasterAdminComponent, canActivate: [AdminAuthGuard]},
     { path: 'home', component: HomePageComponent, canActivate: [AuthGuard]},
     { path: 'login', component: LoginPageComponent},
     { path: 'posts', component: PostsPageComponent, canActivate: [AuthGuard]},

@@ -1,21 +1,44 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from './auth.service';
+import { API_URL } from 'src/constant';
+import * as _ from 'lodash';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
-  apiURL = 'http://bel-fr-rdp:3020/api/posts';
+  apiURL = API_URL + 'posts';
   jwtHelper = new JwtHelperService();
   constructor(private http: HttpClient, private auth: AuthService) { }
 
   createPost(data: any) {
-    const jsonbody = JSON.stringify(data);
-    console.log(jsonbody)
-    this.http.post(`${this.apiURL}/create`, data).subscribe(data => {
+    // const jsonbody = JSON.stringify(data);
+    // console.log(jsonbody)
+
+    const formData = new FormData();
+
+    // Append all fields except 'images'
+    Object.keys(data).forEach(key => {
+      if (key !== 'images') {
+        formData.append(key, data[key]);
+      }
+    });
+  
+    const images = data['images'] as File[]; // Assuming 'images' is an array of File objects
+    // Append 'images' as an array of File objects
+    if (images && Array.isArray(images)) {
+      images.forEach((file: File) => {  
+        formData.append('images', file, file.name);
+      });
+    }
+
+    console.log(formData.getAll('images'))
+    // const header = new HttpHeaders({'Content-Type': 'multipart/form-data'})
+
+    this.http.post(`${this.apiURL}/create`, formData).subscribe(data => {
       console.log(data)
     })
   }
@@ -63,6 +86,9 @@ export class PostsService {
       .subscribe(data => console.log(data));
   }
   
+  activatePost(postId: number) {
+    return this.http.patch(`${this.apiURL}/activate/${postId}`, {});
+  }
 
   deletePost(id: number | string){
     return this.http.delete(`${this.apiURL}/userPost/${id}`);

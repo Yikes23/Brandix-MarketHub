@@ -5,12 +5,13 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import Categories from 'src/utility/category';
 import Typed from 'typed.js';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { ImageUploadService } from '../general-components/image-upload/image-upload.services';
 import * as _ from 'lodash';
 import { PostsService } from '../services/posts.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from '../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-post-creation',
@@ -57,6 +58,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class PostCreationComponent {
   
+  private routeSubscription: Subscription;
   isStepperVisible: boolean = false;
   conditions: boolean = false;
   showNotification: 'expanded' | 'collapsed' = 'collapsed';
@@ -98,12 +100,19 @@ export class PostCreationComponent {
 
     jwtHelper = new JwtHelperService();
     constructor(
-      private fb: FormBuilder, 
+      private fb: FormBuilder,
       private router: Router,
       private authService: AuthService,
       private imageUploadService: ImageUploadService, 
       private postService: PostsService
       ) {
+
+        this.routeSubscription = this.router.events.subscribe(event => {
+          if (event instanceof NavigationEnd) {
+            // Clear uploadedImage data when the route changes
+            this.imageUploadService.clearImageData();
+          }
+        });
 
       this.conditions = this.authService.getDisclaimer();
       this.form = this.fb.group({
@@ -120,8 +129,8 @@ export class PostCreationComponent {
         negotiable: false,        
         postedBy: '',
         postedOn: '',
-        images: [], // Array of image URLs
-      });
+        images: [], 
+      }) as FormGroup;
     }
 
     ngOnInit(): void {
@@ -186,17 +195,33 @@ export class PostCreationComponent {
   submit(){
 
     const token = this.authService.getToken()
-    this.imageUploadService.getImageData().subscribe(data =>{
+    this.imageUploadService.getImageData().subscribe(data => {
       this.form.get('images').setValue(data);
-    })
+    }).unsubscribe();
+    this.imageUploadService.clearImageData();
+
     this.form.get('price').disabled ?
     this.form.get('price').setValue('') : '';
+
     this.form.get('postedBy').setValue(token.email)
     this.form.get('description').setValue(String(this.form.get('description').value).trim())
-    this.form.get('postedOn').setValue(new Date().toLocaleString()) 
-    this.postService.createPost(this.form.value)
+    this.form.get('postedOn').setValue(new Date()) 
+
+    try {
+      this.postService.createPost(this.form.value)
+    } catch (error) {
+      throw console.error(error)
+    }
+
     this.stepperState = 'collapsed';
     this.showNotification = 'expanded';
+  }
+
+  ngOnDestroy(): void {
+    // Unsubscribe from router events when the component is destroyed
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
   }
 }
 

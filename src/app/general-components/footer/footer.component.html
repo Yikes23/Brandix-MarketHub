@@ -2,14 +2,16 @@
   <div fxLayout="column" fxLayoutAlign="start center" style="width: 100%; margin-top: 10%;">
     <div fxFlex="15%">
       <div>
-        <!-- <span style="font-size: small;">For more information contact:</span> -->
       </div>
-      <span class="text">+94 76 6802511 ChandanaPe &nbsp;|&nbsp; </span>
-      <span class="text">+94 77 3139141 HirushiD &nbsp;|&nbsp; </span>
-      <span class="text">+94 76 3913785 ShashikaR </span>
+      <span class="text">+94 76 6802511 Chandana &nbsp;|&nbsp; </span>
+      <span class="text">+94 74 2849835 Ayuka &nbsp;|&nbsp; </span>
+      <span class="text">+94 76 3913785 Shashika </span>
     </div>
     <div fxLayoutAlign="center" fxLayout="column">
       <span class="text"> © 2024 Brandix. All Rights Reserved. </span>
+    </div>
+    <div *ngIf="adminBtn" fxLayoutAlign="center" fxLayout="column">
+      <button mat-button (click)="adminPanel()">Admin Panel</button>
     </div>
   </div>
 </mat-toolbar>

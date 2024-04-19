@@ -1,32 +1,74 @@
-<ng-container *ngIf="postLength(); else elseTemplate">
-  <mat-card *ngFor="let post of posts" class="post" appearance="raised" (click) ="viewPost(post)">
-      <mat-grid-list cols="4" rowHeight="5:5">
-        <mat-grid-tile colspan="1">
-          <img mat-card-lg-image [src]="post.images || '../../assets/no-image.jpg'" style="margin: 10px; border-radius: 8px;">
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2">
-          <div class="detail">
-            <mat-card-title>{{post.title}}</mat-card-title>
-            <mat-card-subtitle>{{post.location}}, {{post.subCategory}}</mat-card-subtitle>
-            <!-- <mat-card-subtitle>{{post.description}}</mat-card-subtitle> -->
-            <mat-card-subtitle><b>Price: {{getPrice(post.price)}} {{post.negotiable? '(Negotiable)' : ''}}</b></mat-card-subtitle>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1" style="border-left: 1px ridge;">
-          <div>
-            <mat-card-subtitle class="posted-by">
-              Posted by: {{post.postedBy}}
-            </mat-card-subtitle>
-            <mat-card-subtitle class="posted-by">
-              {{postedOn(post.postedOn)}}
-            </mat-card-subtitle>
-          </div>
-          <div>
-          </div>
-        </mat-grid-tile>
-      </mat-grid-list>
+<ng-container *ngIf="showSkeleton; else postComponent" >
+  <ng-container style="margin-bottom: 10px;" *ngFor="let _ of [1, 2, 3, 4, 5, 6, 7, 8]">
+    <mat-card class="skeleton" appearance="outlined">
+      <div style="display: flex; align-items: center; width: 100%; margin-top: 2%;">
+        <ngx-skeleton-loader count="1" appearance="circle" 
+          [theme]="{
+            'border-radius': '10px',
+            'margin-left': '5px',
+            width: '13.5vw',
+            height: '12vw',
+            'background-color': 'rgba(128, 128, 128, 0.108)',
+        }"></ngx-skeleton-loader>
+        <div style=" margin-left: 5%; width: 60%; ">
+          <ngx-skeleton-loader count="1" appearance="line"
+            [theme]="{
+              'border-radius': '10px',
+              'flex-direction': 'column',
+              margin: '5px',
+              'margin-left': '10px',
+              width: '40%',
+              height: '1vw',
+            }"></ngx-skeleton-loader>
+          <ngx-skeleton-loader count="4" appearance="line"
+          [theme]="{
+            'border-radius': '10px',
+            'flex-direction': 'column',
+            margin: '5px',
+            'margin-left': '10px',
+            width: '90%',
+            height: '0.75vw',
+          }"></ngx-skeleton-loader>
+        </div>
+      </div>  
     </mat-card>
+  </ng-container>
 </ng-container>
+
+<ng-template #postComponent>
+  <ng-container *ngIf="postLength(); else elseTemplate">
+    <mat-card *ngFor="let post of posts" class="post" appearance="raised" (click) ="viewPost(post)">
+        <mat-grid-list cols="4" rowHeight="5:5">
+          <mat-grid-tile colspan="1">
+            <img mat-card-lg-image [src]="getImageLength(post.images) || '../../assets/no-image.jpg'" style="margin: 10px; border-radius: 8px;">
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2">
+            <div class="detail">
+              <mat-card-title>{{post.title}}</mat-card-title>
+              <mat-card-subtitle>{{post.location}}, {{post.subCategory}}</mat-card-subtitle>
+              <!-- <mat-card-subtitle>{{post.description}}</mat-card-subtitle> -->
+              <mat-card-subtitle><b>Price: {{post.price}} {{post.negotiable? '(Negotiable)' : ''}}</b></mat-card-subtitle>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" style="border-left: 1px ridge;">
+            <div>
+              <mat-card-subtitle class="posted-by">
+                Posted by: <span class="ellipsis">{{post.postedBy}}</span>
+              </mat-card-subtitle>
+              <mat-card-subtitle class="posted-by">
+                {{postedOn(post.postedOn)}}
+              </mat-card-subtitle>
+            </div>
+            <div>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card>
+  </ng-container>
+</ng-template>
+
+
+
 <ng-template #elseTemplate>
   <mat-card-subtitle id="none-template"> <span style="margin: 10%;">Nothing to show</span></mat-card-subtitle> 
 </ng-template> 

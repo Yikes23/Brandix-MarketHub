@@ -30,7 +30,7 @@ export class AdminAuthGuard {
       this.auth.isAdmin(this.email)
       const isAdmin = await this.auth.isAdmin(this.email)
       .pipe(map((data: any) => data as any)).toPromise()
-  
+
       if(this.auth.isAuthenticated()) {
         if(isAdmin){
           return true;
@@ -38,12 +38,9 @@ export class AdminAuthGuard {
         this.router.navigate(['/home']);
         return false;
       }
-      else {
-        this.router.navigate(['/login']);
-        return false;
-      }
     }
+    this.router.navigate(['/login']);
     return false;
   }
-    
+  
 }

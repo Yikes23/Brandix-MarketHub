@@ -1,4 +1,5 @@
 #body{
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,6 +13,17 @@
     margin: 10% 0 15px 0;
     width: 90%;
     background: rgba(255, 255, 255, 0.966)
+}
+
+.mat-error{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 10% 0 15px 0; 
+    width: 90%;
+    height: 90vh;
+    background: rgba(255, 255, 255, 0.966);
 }
 
 .mat-body:nth-child(2){
@@ -55,6 +67,12 @@
     position: relative;
 }
 
+.images{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
 .title{
     width: 80%;
 }
@@ -93,10 +111,19 @@
 .no-image{
     height: 60vh;
 }
+
+.expired{
+    margin:5%; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+}
+
 .prodDescription{
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -109,6 +136,11 @@
     border: 1px solid rgba(0, 0, 0, 0.269)
 }
 
+.prodDescription .skeleton{
+    width: 90%;
+    height: 80%;
+    margin-right: 10%;
+}
 .prodDescription .mat-card section{
     margin: 10px 15px 0px 10px
 }
@@ -177,3 +209,18 @@
     font-size: 2rem;
 }       
   
+
+.ellipsis-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+  
+
+.ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 12.5vw; /* Adjust to your needs */
+    display: inline-block; 
+    align-items: center;
+}

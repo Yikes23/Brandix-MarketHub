@@ -1,9 +1,10 @@
 <app-disclaimer [conditions]="conditions"></app-disclaimer>
 <app-header></app-header>
+
 <div id="body">
   <mat-card class="main-mat-card">
     <mat-card-header style="margin: 1%;">
-      <mat-card-title>Marketplace</mat-card-title>
+      <mat-card-subtitle style="font-size: 1.2rem">Marketplace</mat-card-subtitle>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content style="margin-top: 10px;">
@@ -26,7 +27,7 @@
                 <ul class="list">
                   <li *ngFor="let subCategory of category.subtasks">
                     <mat-checkbox [(ngModel)]="subCategory.completed"
-                                  [color]="subCategory.color"
+                    [color]="subCategory.color"
                                   (ngModelChange)="filterChange()"
                                   >
                       {{subCategory.name}}
@@ -45,12 +46,12 @@
                 <mat-label>City</mat-label>         
                 <mat-select [(ngModel)]="selectedCity" (ngModelChange)="filterChange()">
                     <mat-option *ngFor="let city of cities" [value]="city">{{city}}</mat-option>
-                </mat-select>
-              </mat-form-field> -->
-              <mat-form-field class="cityFilter">
-                <mat-label>City</mat-label> 
-                <input matInput [formControl]="selectedCity" [matAutocomplete]="auto">
-                <button *ngIf="selectedCity.value" matSuffix mat-icon-button (click)="clearInput()">
+                  </mat-select>
+                </mat-form-field> -->
+                <mat-form-field class="cityFilter">
+                  <mat-label>City</mat-label> 
+                  <input matInput [formControl]="selectedCity" [matAutocomplete]="auto">
+                  <button *ngIf="selectedCity.value" matSuffix mat-icon-button (click)="clearInput()">
                   <mat-icon>close</mat-icon>
                 </button>
                 <mat-autocomplete #auto>
@@ -66,7 +67,7 @@
                    *ngFor="let city of cityChips"
                   >
                   <button matChipRemove (click)="removeLocation(city)">
-                    <mat-icon>cancel</mat-icon>
+                    <mat-icon>cancel</mat-icon> 
                   </button>
                   {{city}}
                   </mat-chip>
@@ -78,9 +79,9 @@
         <div fxFlex="66%">
           <div class="posts">
               <app-posts [posts]=" posts ? posts['data'] : '' "></app-posts>
+            </div>
           </div>
         </div>
-      </div>
     </mat-card-content>
     <mat-card-footer>
       <mat-paginator

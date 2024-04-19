@@ -1,5 +1,5 @@
 <mat-toolbar [ngClass]="{ 'hidden-toolbar': hideToolbar, 'toolbar': !hideToolbar }">
-    <img src="../../assets/logo.png" class="logo" (click)="navigateTo('home')" />
+    <img src="../../assets/logo.png" style="max-width: 25%; max-height: 50%; " class="logo" (click)="navigateTo('home')" />
     <div style="margin-left: 10%;">
         <ng-container *ngIf="!hideToolbar;">
             <app-search-bar class="searchBar" ></app-search-bar>

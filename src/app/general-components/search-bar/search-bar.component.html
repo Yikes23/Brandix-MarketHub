@@ -9,18 +9,20 @@
         <ng-container *ngFor="let post of filteredPosts | async">
             <mat-option [value]="post.title">
                 <div style="display: flex; margin: 5px; width: 50%;">
-                    <ng-container *ngIf="post.images; else elseTemplate">
+                    <ng-container *ngIf="getImage(post.images?.data); else elseTemplate">
                         <div>
-                            <img [src]="post.images" class="post-image" >
+                            <img [src]="getImage(post.images?.data)" class="post-image" >
                         </div>
                     </ng-container>
                     <ng-template #elseTemplate>
                         <div>
                             <img src="../../../assets/no-image.jpg" class="post-image">
                         </div>
-                    </ng-template>
+                    </ng-template>                                               
+
                     <div class="ellipsis-container">
-                        <span class="ellipsis">{{post.title}}</span>
+                        <span class="ellipsis" style="font-weight: 500;">{{post.title}}</span>
+                        <span class="ellipsis" style="font-size: 0.75em;">{{post.subCategory}}</span>
                     </div>
                 </div>
             </mat-option>

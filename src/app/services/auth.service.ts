@@ -2,20 +2,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, Subject } from 'rxjs';
+import { API_URL } from 'src/constant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  apiUrl = 'http://bel-fr-rdp:3020/api/auth';  // Update to point to your Nginx reverse proxy
+
+  apiUrl = API_URL +'auth';  // Update to point to your Nginx reverse proxy
   jwtHelper = new JwtHelperService();
   private isAdminSubject = new Subject<boolean>();
 
   constructor(private http: HttpClient) { }
   
   signIn(email: string | null, password: string | null): Observable<any> {
-    console.log(email, password);
     const signInDto = {
       email: email,
       password: password,
@@ -38,13 +39,20 @@ export class AuthService {
   isAdmin(email: string): Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/isAdmin/${email}`)
   }
+
+  isSuperAdmin(email: string) {
+    return this.http.get<boolean>(`${this.apiUrl}/isSuperAdmin/${email}`)
+  }
   
   setToken(token: string){
     localStorage.setItem('token', token);
   }
 
   getToken(): any {
-    return this.jwtHelper.decodeToken(String(localStorage.getItem('token')));
+    if(localStorage.length > 0){
+      return this.jwtHelper.decodeToken(String(localStorage.getItem('token')));
+    }
+    return null;  
   }
 
   getEncodedToken(): string {
@@ -78,6 +86,13 @@ export class AuthService {
     return localStorage.getItem('disclaimer') ? false: true;
   }
 
+  updateAdmin(email: string, flag: boolean){
+    return this.http.patch(`${this.apiUrl}/updateAdmin/${email}/${flag}`, {});
+  }
+
+  getAdmins(){
+    return this.http.get(`${this.apiUrl}/admins`);
+  }
 }
 
 

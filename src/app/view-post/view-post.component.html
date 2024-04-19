@@ -1,134 +1,242 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
 <app-header></app-header>
 <app-disclaimer [conditions]="conditions"></app-disclaimer>
-<div id="body"> 
-    <mat-card class="mat-body">
-        <mat-card class="header">
-            <mat-card-subtitle style="margin: 10px;">
-                <a class="category" (click)="navigateTo('posts', selectedPost?.category)">{{selectedPost?.category}}</a> /
-                <a class="category" (click)="navigateTo('posts', selectedPost?.subCategory)">{{selectedPost?.subCategory}}</a> /
-                <a>{{selectedPost?.title}}</a>
-            </mat-card-subtitle>
-        </mat-card>
-    
-        <div fxLayout="row" fxLayoutAlign="center start" class="grid">
-            <div fxFlex="60%" style="display: flex; justify-content: center; align-items: center;">
-                <ng-container *ngIf="images && images.length; else elseTemplate">
-                    <div class="postImage">   
-                        <ngb-carousel class="carousel custom-carousel">
-                            <ng-template ngbSlide *ngFor="let Url of images; let i = index">
-                                <div class="slider">
-                                    <div class="wrapper" >
-                                        <img mat-card-image [src]="Url" [alt]="'Random slide ' + (i + 1)" class="custom-img" />
-                                    </div>
-                                </div>
-                            </ng-template>
-                        </ngb-carousel>
-                    </div>
-                </ng-container>
-                <ng-template #elseTemplate>
-                        <img mat-card-image src ="../../assets/no-image.jpg" class="no-image" />
-                </ng-template>
-            </div>
-            <div fxFlex="40%"  style="height: 400px;">
-              <div class="prodDescription">
-                  <mat-card class="mat-card">
-                    <div class="bookmark" (click)="toggleBookmark()">
-                        <mat-icon [fontIcon]="isBookmarked ? 'bookmark' : 'bookmark_border'" matTooltip="{{ isBookmarked ? 'Remove from wishlist' : 'Add to wishlist' }}"
-                            style="font-size: 35px; cursor: pointer;"></mat-icon>
-                    </div>
-                    <section style="display: flex; flex-direction: column;">
-                        <mat-card-title class="title">
-                            <span style="font-size: large; overflow-wrap: break-word; max-width: 100%;">{{selectedPost?.title}}</span>
-                        </mat-card-title>  
-                        <mat-card-subtitle>{{selectedPost?.location}}</mat-card-subtitle>
-                    </section>
-                    <section>
-                        <mat-list>
-                            <mat-divider></mat-divider>
-                            <mat-list-item>
-                                <div style="display: flex;">
-                                    <mat-icon fontIcon="calendar_month" style="font-size: x-large; margin-right: 5px;"></mat-icon>
-                                    <mat-card-subtitle>Posted at: {{selectedPost?.postedOn}}</mat-card-subtitle>
-                                </div>
-                            </mat-list-item>
-                            <mat-divider></mat-divider>
-                            <mat-list-item>
-                                <div style="display: flex;">
-                                    <mat-icon fontIcon="account_box" style="font-size: x-large; margin-right: 5px;"></mat-icon>
-                                    <mat-card-subtitle>Posted by: {{selectedPost?.postedBy}}</mat-card-subtitle>
-                                </div>
-                            </mat-list-item>
-                            <mat-divider></mat-divider>
-                            <mat-list-item>
-                                <div style="display: flex;">
-                                    <mat-icon fontIcon="call" style="font-size: x-large; margin-right: 5px;"></mat-icon>
-                                    <mat-card-subtitle>Contact No: <span style="font-style: italic;">{{selectedPost?.mobile || "Unavailable"}}</span></mat-card-subtitle>
-                                </div>
-                            </mat-list-item>
-                            <mat-divider></mat-divider>
-                        </mat-list>
-                    </section>
-                    <section style="display: flex;">
-                        <mat-card class="price">
-                            <div fxLayout="row" fxLayoutAlign="center center">
-                                <div fxFlex="30%" style="display: flex; align-items: center;">
-                                    <mat-icon fontIcon="sell" style="height: auto; width: auto; color:white; font-size: x-large; margin: 10px;"></mat-icon>
-                                </div>
-                                <div fxFlex="70%" style="display: flex; align-items: center; flex-direction: column; margin: 5px;">
-                                    <ng-container style="color: white; font-size: large; margin: 2px;">
-                                        <span style="color: white; font-size: large; font-style: oblique;">Rs. {{getPrice()}} <br></span> 
-                                        <span style="color: white; font-size: small; font-style: oblique;">{{selectedPost?.negotiable ? "(Negotiable)" : ""}}</span>
-                                    </ng-container>
-                                </div>
+
+<ng-container *ngIf="skeleton; else body">
+    <div id="body">
+        <mat-card class="mat-body">
+            <mat-card class="header">
+                <div style="margin-left: 1%;">
+                <ngx-skeleton-loader count="3" appearance="line"
+                animation="pulse"
+                [theme]="{
+                    'border-radius': '5px',
+                    'margin-top': '2%',
+                    'margin-left': '0.5%',
+                    width: '12.5%',
+                }"/>
+
+                </div>
+            </mat-card>
+            <div fxLayout="row" fxLayoutAlign="center start" class="grid">
+                <div fxFlex="60%" class="images">
+                    <ngx-skeleton-loader count="1" appearance="circle"
+                    [theme]="{
+                        'border-radius': '5px',
+                        width: '40vw',
+                        'height': '60vh',
+                    }"
+                    >
+                    </ngx-skeleton-loader>
+                </div>
+                <div fxFlex="40%"  style="height: 400px;">
+                    <div class="prodDescription">
+                        <!-- <mat-card class="mat-card" [appearance]="'outlined'"> -->
+                            <div class="skeleton">
+                                <ngx-skeleton-loader count="1" appearance="circle"
+                                [theme]="{
+                                    'width': '100%',
+                                    height: '100%',
+                                    'border-radius': '10px',
+                                }"/> 
                             </div>
-                        </mat-card>
-                        <ng-container *ngIf="isAuthor()">
-                            <div class="delete-btn">
-                                <button mat-icon-button (click)="deletePost()" matTooltip="Remove post">
-                                    <mat-icon fontIcon="delete" class="delete"></mat-icon>
-                                </button>
+                        <!-- </mat-card> -->
+                    </div>
+                </div>
+            </div>
+            <div class="grid">
+                <section style="margin: 2%;">
+                    <ngx-skeleton-loader count="1" appearance="line"
+                    [theme]="{
+                        'border-radius': '10px',
+                        width: '25%',
+                        'margin-left': '2%',
+                    }">
+                    </ngx-skeleton-loader>
+                    <ngx-skeleton-loader count="4" appearance="line"
+                    [theme]="{
+                        height: '10px'
+                    }">
+
+                    </ngx-skeleton-loader>
+                </section>
+            </div>
+        </mat-card>
+    </div>
+</ng-container>
+
+<ng-template #body>
+    <ng-container *ngIf="selectedPost; else elseTemplate" #body>
+        <div id="body"> 
+            <mat-card class="mat-body">
+                <mat-card class="header">
+                    <mat-card-subtitle style="margin: 10px;">
+                        <a class="category" (click)="navigateTo('posts', selectedPost?.category)">{{selectedPost?.category}}</a> /
+                        <a class="category" (click)="navigateTo('posts', selectedPost?.subCategory)">{{selectedPost?.subCategory}}</a> /
+                        <a>{{selectedPost?.title}}</a>
+                    </mat-card-subtitle>
+                </mat-card>
+            
+                <div fxLayout="row" fxLayoutAlign="center start" class="grid">
+                    <div fxFlex="60%" class="images">
+                        <ng-container *ngIf="images && images.length; else elseTemplate">
+                            <div class="postImage">   
+                                <ngb-carousel class="carousel custom-carousel">
+                                    <ng-template ngbSlide *ngFor="let Url of images; let i = index">
+                                        <div class="slider">
+                                            <div class="wrapper" >
+                                                <img mat-card-image [src]="Url" [alt]="'Random slide ' + (i + 1)" class="custom-img" />
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-carousel>
                             </div>
                         </ng-container>
-                    </section>
-                </mat-card>
-            </div>
-            </div>
-        </div>
-            <mat-card class="grid" [appearance]="'outlined'">
-                <section style="margin: 20px;">
-                    <mat-card-title>
-                        Description
-                    </mat-card-title>                    
-                    <mat-card-subtitle class="description">
-                        {{selectedPost?.description}}
-                    </mat-card-subtitle>
-                </section>
-        </mat-card> 
-    </mat-card>
-    <!-- <mat-card class="mat-body">
-        <div class="header">
-            <div class="text">
-                <mat-card-title style="margin-right: 2px;">Ratings & Reviews</mat-card-title>
-                <mat-card-subtitle style="font-size: 1.2em;">({{reviews.length}})</mat-card-subtitle>
-            </div>
-        </div>
-        <div class="grid">
-            <mat-chip (click)="createReview()">
-                <mat-chip-avatar><mat-icon style="font-size: medium;">edit</mat-icon></mat-chip-avatar>
-                Write a review
-            </mat-chip>
-        </div>
-        <section>
-            <div class="reviews">
-                <mat-card *ngFor="let review of reviews" class="review">
-                    <mat-card-header>{{review?.reviewedBy}}</mat-card-header>
-                    <app-rating [cursor]="false" [rating]="review?.ratings"></app-rating>
-                    <div class="comment">
-                        {{review?.comment}}
+                        <ng-template #elseTemplate>
+                                <img mat-card-image src ="../../assets/no-image.jpg" class="no-image" />
+                        </ng-template>
                     </div>
-                </mat-card>
-            </div>
-        </section> 
-    </mat-card> -->
-</div>
+                    <div fxFlex="40%"  style="min-height: 400px; max-height: auto;">
+                      <div class="prodDescription">
+                        <mat-card *ngIf="selectedPost?.expired" appearance="outlined" style="width: 80%; margin: 2%;">
+                            <div class="expired">
+                                <mat-card-subtitle>This post has expired.</mat-card-subtitle>
+                                <mat-card-subtitle>Would you like to activate it?</mat-card-subtitle>
+                                <button mat-stroked-button style="font-size: smaller; margin:1%" (click)="activatePost()" color="primary">Activate</button>
+                            </div>
+                        </mat-card>
+                          <mat-card class="mat-card">
+                            <div class="bookmark" (click)="toggleBookmark()"> 
+                                <mat-icon [fontIcon]="isBookmarked ? 'bookmark' : 'bookmark_border'" matTooltip="{{ isBookmarked ? 'Remove from wishlist' : 'Add to wishlist' }}"
+                                    style="font-size: 35px; cursor: pointer;"></mat-icon>
+                            </div>
+                            <section style="display: flex; flex-direction: column;">
+                                <mat-card-title class="title">
+                                    <span style="font-size: large; overflow-wrap: break-word; max-width: 100%;">{{selectedPost?.title}}</span>
+                                </mat-card-title>  
+                                <mat-card-subtitle>{{selectedPost?.location}}</mat-card-subtitle>
+                            </section>
+                            <section>
+                                <mat-list>
+                                    <mat-divider></mat-divider>
+                                    <mat-list-item>
+                                        <div style="display: flex;">
+                                            <mat-icon fontIcon="calendar_month" style="font-size: x-large; margin-right: 5px;"></mat-icon>
+                                            <mat-card-subtitle>Posted at: {{postedOn(selectedPost?.postedOn)}}</mat-card-subtitle>
+                                        </div>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <mat-list-item>
+                                        <div style="display: flex;">
+                                            <div style="display: flex; flex-direction: row;">
+                                                <mat-icon fontIcon="account_box" style="font-size: x-large; margin-right: 5px;"></mat-icon>
+                                                <mat-card-subtitle> Posted by:&nbsp;</mat-card-subtitle>
+                                            </div>
+                                            <div style="display: flex; width: 100%;">
+                                                <mat-card-subtitle class="ellipsis">ddddddddddddddddddddddddd{{selectedPost?.postedBy}}</mat-card-subtitle>
+                                            </div>
+                                        </div>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <ng-container *ngIf="selectedPost?.mobile;">
+                                        <mat-list-item>
+                                            <div style="display: flex;">
+                                                <mat-icon fontIcon="call" style="font-size: x-large; margin-right: 5px;"></mat-icon>
+                                                <mat-card-subtitle>Contact No: <span style="font-style: italic;">{{selectedPost?.mobile}}</span></mat-card-subtitle>
+                                            </div>
+                                        </mat-list-item>
+                                        <mat-divider></mat-divider>
+                                    </ng-container>
+                                </mat-list>
+                            </section>
+                            <section style="display: flex;">
+                                <mat-card class="price">
+                                    <div fxLayout="row" fxLayoutAlign="center center">
+                                        <div fxFlex="30%" style="display: flex; align-items: center;">
+                                            <mat-icon fontIcon="sell" style="height: auto; width: auto; color:white; font-size: x-large; margin: 10px;"></mat-icon>
+                                        </div>
+                                        <div fxFlex="70%" style="display: flex; align-items: center; flex-direction: column; margin: 5px;">
+                                            <ng-container style="color: white; font-size: large; margin: 2px;">
+                                                <span style="color: white; font-size: large; font-style: oblique;">Rs. {{selectedPost?.price}} <br></span> 
+                                                <span style="color: white; font-size: small; font-style: oblique;">{{selectedPost?.negotiable ? "(Negotiable)" : ""}}</span>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </mat-card>
+                                <ng-container *ngIf="isAuthor()">
+                                    <div class="delete-btn">
+                                        <button mat-icon-button (click)="deletePost()" matTooltip="Remove post">
+                                            <mat-icon fontIcon="delete" class="delete"></mat-icon>
+                                        </button>
+                                    </div>
+                                </ng-container>
+                            </section>
+                        </mat-card>
+                    </div>
+                    </div>
+                </div>
+                    <mat-card class="grid" [appearance]="'outlined'">
+                        <section style="margin: 20px;">
+                            <mat-card-title>
+                                Description
+                            </mat-card-title>                    
+                            <mat-card-subtitle class="description">
+                                {{selectedPost?.description}}
+                            </mat-card-subtitle>
+                        </section>
+                </mat-card> 
+            </mat-card>
+            <!-- <mat-card class="mat-body">
+                <div class="header">
+                    <div class="text">
+                        <mat-card-title style="margin-right: 2px;">Ratings & Reviews</mat-card-title>
+                        <mat-card-subtitle style="font-size: 1.2em;">({{reviews.length}})</mat-card-subtitle>
+                    </div>
+                </div>
+                <div class="grid">
+                    <mat-chip (click)="createReview()">
+                        <mat-chip-avatar><mat-icon style="font-size: medium;">edit</mat-icon></mat-chip-avatar>
+                        Write a review
+                    </mat-chip>
+                </div>
+                <section>
+                    <div class="reviews">
+                        <mat-card *ngFor="let review of reviews" class="review">
+                            <mat-card-header>{{review?.reviewedBy}}</mat-card-header>
+                            <app-rating [cursor]="false" [rating]="review?.ratings"></app-rating>
+                            <div class="comment">
+                                {{review?.comment}}
+                            </div>
+                        </mat-card>
+                    </div>
+                </section> 
+            </mat-card> -->
+        </div>
+    </ng-container>
+</ng-template>
+
+
+<ng-template #elseTemplate>
+    <div id="body" >
+        <mat-card class="mat-error">
+            <header>
+                <span style="font-size: xx-large; font-family: 'Alfa Slab One', serif;">Oops!</span>
+            </header>
+            <mat-card-content>
+                <span style="font-size: medium;">
+                    The post you are looking is unavailable.
+                </span>
+            </mat-card-content>
+            <mat-card-actions style="margin: 10px;">
+                <button mat-flat-button (click)="navigateTo('','')" color="primary">
+                    <mat-icon matPrefix>home</mat-icon>
+                    <span>Return to home</span>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</ng-template>
+
 <app-footer></app-footer>

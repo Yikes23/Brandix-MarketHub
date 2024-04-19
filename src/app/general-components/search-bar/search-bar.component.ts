@@ -4,13 +4,17 @@
   import { Observable, catchError, debounceTime, distinctUntilChanged, startWith, switchMap, take, tap } from 'rxjs';
   import { PostsService } from 'src/app/services/posts.service';
 import { SearchService } from 'src/app/services/search.service';
+import { ImageService } from 'src/utility/displayImage';
 
 
   interface Post {
     id: number;
     title: string;
     description: string;
-    images: string;
+    images: {
+      type: string;
+      data: ArrayBuffer;
+    } | null;
     subCategory: string;
     category: string;
     location: string;
@@ -29,7 +33,12 @@ import { SearchService } from 'src/app/services/search.service';
     filteredPosts: Observable<Post[]>;
     posts: Post[] = [];
     
-    constructor(private postService: PostsService, private router: Router, private searchService: SearchService) {
+    constructor(
+      private postService: PostsService, 
+      private router: Router, 
+      private searchService: SearchService,
+      private imageService: ImageService
+      ) {
       this.filteredPosts = this.searchCtrl.valueChanges.pipe(
         startWith(''),
         debounceTime(300),
@@ -56,6 +65,15 @@ import { SearchService } from 'src/app/services/search.service';
     clearSearch(){
       this.searchCtrl.setValue('')
     }
+
+    getImage(image: any){
+      if(image){
+        return this.imageService.displayImage(image);
+      }
+      return 0;
+    }
+
+
 
     viewPost(data: any){
       if(data.option){

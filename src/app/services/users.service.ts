@@ -3,13 +3,14 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
+import { API_URL } from 'src/constant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-
-  apiURL = 'http://bel-fr-rdp:3020/api/user';
+ 
+  apiURL = API_URL + 'user';
   jwtHelper = new JwtHelperService();
   constructor(private http: HttpClient,private authService: AuthService) { }
   

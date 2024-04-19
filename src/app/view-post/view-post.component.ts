@@ -8,8 +8,7 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../services/auth.service';
 import * as _ from 'lodash';
-import { Observable, observable } from 'rxjs';
-import { observeNotification } from 'rxjs/internal/Notification';
+import { ImageService } from 'src/utility/displayImage';
 
 @Component({
   selector: 'app-view-post',
@@ -23,6 +22,7 @@ export class ViewPostComponent {
   isAdmin: boolean = false;
   conditions: boolean = false;
   selectedPost: any;
+  skeleton: boolean = true;
   images: any;
   reviews: any[] = [];
   
@@ -33,6 +33,7 @@ export class ViewPostComponent {
       private _snackBar: MatSnackBar,
       private postService: PostsService,
       private userService: UsersService,
+      private imageService: ImageService,
       private authService: AuthService) {
     // customize default values of carousels used by this component tree
     this.conditions = this.authService.getDisclaimer();
@@ -49,14 +50,20 @@ export class ViewPostComponent {
     this.route.params.forEach(params => {
       const postId = params['id'];
       
-      this.postService.findPost(postId).subscribe(data => {
-        this.selectedPost = data;
-        this.images = this.selectedPost.images;
-        this.userService
-        .getWishlistStatus(this.selectedPost?.id)
-        .subscribe((data: boolean) => {
-          this.isBookmarked = data;
-        }) 
+      this.postService.findPost(postId).subscribe((data: any) => {
+        if(!data.expired || this.isAuthor(data.postedBy)){
+          this.selectedPost = data;
+          this.images = this.base64Convert(this.selectedPost.images);
+          this.userService
+          .getWishlistStatus(this.selectedPost?.id)
+          .subscribe((data: boolean) => {
+            this.isBookmarked = data;
+          }) 
+        }
+
+        setTimeout(() => {
+          this.skeleton = false;
+        }, 2000);
         
         // _.forEach(this.selectedPost.reviews, 
         //   (data: any) => {
@@ -67,7 +74,17 @@ export class ViewPostComponent {
     })
     
     const author = this.authService.getToken()['email'];
-    this.authService.isAdmin(String(author).toLowerCase()).subscribe(response => this.isAdmin = response);
+    this.authService.isAdmin(String(author).toLowerCase()).subscribe(response =>{
+      this.isAdmin = response;
+    });
+  }
+
+  base64Convert(images: Array<any>){
+    const image64: any = []
+    images.forEach((image) => {
+      image64.push(this.imageService.displayImage(image.data.data))
+    })
+    return image64;
   }
 
   getPrice(){
@@ -79,6 +96,17 @@ export class ViewPostComponent {
     else{
       return 'Unavailable'
     }
+  }
+
+  postedOn(date: string){
+    const localDate = new Date(date);
+    return `${localDate.toLocaleString('en-US', {
+      day: 'numeric',
+      month: 'long',
+      hour:'2-digit',
+      minute:'numeric',
+      hour12: true,
+    })}`
   }
   
   toggleBookmark() {
@@ -96,20 +124,23 @@ export class ViewPostComponent {
     }
     
     navigateTo(location: string, data: string) {
-      console.log(data)
       this.router.navigate([`/${location}`], {state: {data: data}});
     }
     
-    isAuthor(): boolean {
+    isAuthor(postedBy? : String): boolean {
       const author = this.authService.getToken()['email'];
-      if(this.isAdmin || author === this.selectedPost?.postedBy){
+
+      if(this.isAdmin || author === this.selectedPost?.postedBy || author === postedBy){
         return true
       }
       return false;   
     }
 
-
-    
+    activatePost(){
+      this.postService.activatePost(this.selectedPost.id).subscribe(response => {
+        this.selectedPost.expired = false;
+      });
+    }
     
     deletePost(){
       this.dialog.open(DeletePostComponent).afterClosed().subscribe((valid: any) => {

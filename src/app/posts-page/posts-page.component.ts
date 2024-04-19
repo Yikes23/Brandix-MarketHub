@@ -150,8 +150,8 @@ export class PostsPageComponent {
   }
 
   removeLocation(remove: String){
-    this.cityChips = this.cityChips.filter(city => city !== remove);
     this.retrievePost(this.pageIndex, this.pageSize);
+    this.cityChips = this.cityChips.filter(city => city !== remove);
   }
 
   indeterminate(mainCtg: string){

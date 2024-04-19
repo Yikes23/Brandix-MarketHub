@@ -3,13 +3,28 @@ import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 export class ImageUploadService {
-  private imageDataSubject = new BehaviorSubject<string[]>([]);
+  private imageDataSubject = new BehaviorSubject<File[]>([]);
 
-  getImageData(): Observable<string[]> {
+   getImageData(): Observable<File[]> {
+    console.log(this.imageDataSubject.value)
     return this.imageDataSubject.asObservable();
   }
+  
+  setImageData(data: File): void {
+    const images = this.imageDataSubject.value
+    this.imageDataSubject.next([...images, data]);
+  }
 
-  setImageData(data: string[]): void {
-    this.imageDataSubject.next(data);
+  removeImageData(position: number): void{
+    const images = this.imageDataSubject.getValue();
+    images.forEach((value, index) => {
+      index === position ? 
+      images.splice(index, 1) : ''
+    })
+    this.imageDataSubject.next(images)
+  }
+
+  clearImageData() {
+    this.imageDataSubject.next([]);
   }
 }
